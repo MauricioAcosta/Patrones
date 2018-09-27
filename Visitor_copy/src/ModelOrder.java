@@ -1,20 +1,32 @@
 public class ModelOrder {
-  private String name;
-  private String OrderSeletedType;
-  private String location;
+  private String orderAmount;
+  private String orderSH;
+  private String orderTax;
+  private String orderType;
 
-  public ModelOrder(String inp_name, String inp_certType, String loc) {
-    name = inp_name;
-    OrderSeletedType = inp_certType;
-    location = loc;
+  public ModelOrder(String orderAmount, String orderSH, String orderTax, String orderType) {
+    orderAmount = orderAmount;
+    orderSH = orderSH;
+    orderTax = orderTax;
+    orderType = orderType;
   }
-  public String getOrderSeletedType() {
-    return OrderSeletedType;
-  }
-  public String getName() {
-    return name;
-  }
-  public String getLocation() {
-    return location;
-  }
+
+    public String getOrderAmount() {
+        return orderAmount;
+    }
+
+    public String getOrderSH() {
+        return orderSH;
+    }
+
+    public String getOrderTax() {
+        return orderTax;
+    }
+
+    public String getOrderType() {
+        return orderType;
+    }
+ 
+  
+  
 }
