@@ -44,34 +44,32 @@ public class OrderManager extends JFrame {
         txtOrderAmount = new JTextField(10);
         txtAdditionalTax = new JTextField(10);
         txtAdditionalSH = new JTextField(10);
+        txtNumOrderModify = new JTextField(10);
 
         lblOrderType = new JLabel("Order Type:");
         lblOrderAmount = new JLabel("Order Amount:");
-        lblAdditionalTax
-                = new JLabel("Additional Tax(CA Orders Only):");
-        lblAdditionalSH
-                = new JLabel("Additional S & H(Overseas Orders Only):");
+        lblAdditionalTax = new JLabel("Additional Tax(CA Orders Only):");
+        lblAdditionalSH = new JLabel("Additional S & H(Overseas Orders Only):");
 
         lblTotal = new JLabel("Result:");
-        lblTotalValue
-                = new JLabel("Click Create or GetTotal Button");
+        lblTotalValue = new JLabel("Click Create or GetTotal Button");
         
         lbNumOrder = new JLabel("Number Order");
+        lbcontOrder = new JLabel("#");
         
         lbOrderModify = new JLabel("Number Order to Modify");
 
         //Create the open button
-        JButton getTotalButton
-                = new JButton(OrderManager.GET_TOTAL);
+        JButton getTotalButton = new JButton(OrderManager.GET_TOTAL);
         getTotalButton.setMnemonic(KeyEvent.VK_G);
+        
+        
 
-        JButton createOrderButton
-                = new JButton(OrderManager.CREATE_ORDER);
+        JButton createOrderButton = new JButton(OrderManager.CREATE_ORDER);
         getTotalButton.setMnemonic(KeyEvent.VK_C);
 
         // Create the search button
-        JButton searchButton
-                = new JButton(OrderManager.MODIFY);
+        JButton searchButton = new JButton(OrderManager.MODIFY);
         getTotalButton.setMnemonic(KeyEvent.VK_C);
 
         JButton exitButton = new JButton(OrderManager.EXIT);
@@ -104,32 +102,21 @@ public class OrderManager extends JFrame {
         gbc2.gridx = 1;
         gbc2.gridy = 0;
         gridbag2.setConstraints(searchButton, gbc2);
-        gbc2.gridx = 2;
-        gbc2.gridy = 0;
+        gbc2.gridx = 5;
+        gbc2.gridy = 5;
         gridbag2.setConstraints(getTotalButton, gbc2);
         gbc2.gridx = 3;
         gbc2.gridy = 0;
         gridbag2.setConstraints(exitButton, gbc2);
+        
+       
 
         //****************************************************
         GridBagLayout gridbag = new GridBagLayout();
         buttonPanel.setLayout(gridbag);
         GridBagConstraints gbc = new GridBagConstraints();
 
-        buttonPanel.add(lblOrderType);
-        buttonPanel.add(cmbOrderType);
-        buttonPanel.add(lblOrderAmount);
-        buttonPanel.add(txtOrderAmount);
-        buttonPanel.add(lblAdditionalTax);
-        buttonPanel.add(txtAdditionalTax);
-        buttonPanel.add(lblAdditionalSH);
-        buttonPanel.add(txtAdditionalSH);
-        buttonPanel.add(lblTotal);
-        buttonPanel.add(lblTotalValue);
-        buttonPanel.add(lbNumOrder);
-        buttonPanel.add(lbOrderModify);
-        buttonPanel.add(lbcontOrder);
-
+        
         gbc.insets.top = 5;
         gbc.insets.bottom = 5;
         gbc.insets.left = 5;
@@ -183,6 +170,38 @@ public class OrderManager extends JFrame {
         gbc.insets.left = 2;
         gbc.insets.right = 2;
         gbc.insets.top = 40;
+        
+        gbc.anchor = GridBagConstraints.PAGE_END; //bottom of space
+        gbc.insets = new Insets(50,50,0,0);  //top padding
+        gridbag.setConstraints(lbNumOrder, gbc);
+        gridbag.setConstraints(lbcontOrder, gbc);
+        gbc.gridx = 10;
+        gbc.gridy = 5;
+        gridbag.setConstraints(lbOrderModify, gbc);
+        gbc.gridx = 10;
+        gbc.gridy = 5;
+        gridbag.setConstraints(txtNumOrderModify, gbc);
+        gbc.gridx = 10;
+        gbc.gridy = 5;
+        
+        buttonPanel.add(lblOrderType);
+        buttonPanel.add(cmbOrderType);
+        buttonPanel.add(lblOrderAmount);
+        buttonPanel.add(txtOrderAmount);
+        buttonPanel.add(lblAdditionalTax);
+        buttonPanel.add(txtAdditionalTax);
+        buttonPanel.add(lblAdditionalSH);
+        buttonPanel.add(txtAdditionalSH);
+        buttonPanel.add(lblTotal);
+        buttonPanel.add(lblTotalValue);
+        buttonPanel.add(lbNumOrder);
+        buttonPanel.add(lbOrderModify);
+                //buttonPanel.add(lbcontOrder);
+        panel.add(getTotalButton);
+        panel.add(createOrderButton);
+        panel.add(searchButton);
+        panel.add(exitButton);
+
 
         //****************************************************
         //Add the buttons and the log to the frame
