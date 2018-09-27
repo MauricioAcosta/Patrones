@@ -4,29 +4,33 @@ import java.util.*;
 class OrderVisitor implements VisitorInterface {
     
     private double orderTotal;
+    
+//    HashMap obj=new HashMap();
 
     public OrderVisitor() {
         
     }
 
-    public double visit(NonCaliforniaOrder inp_order) {
+    public NonCaliforniaOrder visit(NonCaliforniaOrder inp_order) {
+        
+        //orderTotal = orderTotal + inp_order.getOrderAmount();
         System.out.println("Valor order "+inp_order.getOrderAmount());
-        orderTotal = orderTotal + inp_order.getOrderAmount();
-        return orderTotal;
+        return inp_order;
     }
 
-    public double visit(CaliforniaOrder inp_order) {
+    public CaliforniaOrder visit(CaliforniaOrder inp_order) {
+        
+        //orderTotal = orderTotal + inp_order.getOrderAmount()
+          //      + inp_order.getAdditionalTax();
         System.out.println("Valor order "+inp_order.getOrderAmount() +" Valor impuesto: "+ inp_order.getAdditionalTax());
-        orderTotal = orderTotal + inp_order.getOrderAmount()
-                + inp_order.getAdditionalTax();
-        return orderTotal;
+        return inp_order;
     }
 
-    public double visit(OverseasOrder inp_order) {
+    public OverseasOrder visit(OverseasOrder inp_order) {
+        //orderTotal = orderTotal + inp_order.getOrderAmount()
+          //      + inp_order.getAdditionalSH();
         System.out.println("Valor order "+inp_order.getOrderAmount() +" Valor impuesto: "+ inp_order.getAdditionalSH());
-        orderTotal = orderTotal + inp_order.getOrderAmount()
-                + inp_order.getAdditionalSH();
-        return orderTotal;
+        return inp_order;
     }
 
     public double getOrderTotal() {

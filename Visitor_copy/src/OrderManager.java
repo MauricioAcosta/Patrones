@@ -18,17 +18,15 @@ public class OrderManager extends JFrame {
     public static final String CREATE_ORDER = "Create Order";
     public static final String EXIT = "Exit";
     public static final String CA_ORDER = "California Order";
-    public static final String NON_CA_ORDER
-            = "Non-California Order";
-
+    public static final String NON_CA_ORDER = "Non-California Order";
     public static final String OVERSEAS_ORDER = "Overseas Order";
 
     private JComboBox cmbOrderType;
-    private JTextField txtOrderAmount, txtAdditionalTax,
-            txtAdditionalSH;
+    private JTextField txtOrderAmount, txtAdditionalTax, txtAdditionalSH, txtNumOrderModify;
     private JLabel lblOrderType, lblOrderAmount;
     private JLabel lblAdditionalTax, lblAdditionalSH;
-    private JLabel lblTotal, lblTotalValue;
+    private JLabel lblTotal, lblTotalValue, lbNumOrder, lbOrderModify, lbcontOrder;
+    
 
     private OrderVisitor objVisitor;
 
@@ -57,6 +55,10 @@ public class OrderManager extends JFrame {
         lblTotal = new JLabel("Result:");
         lblTotalValue
                 = new JLabel("Click Create or GetTotal Button");
+        
+        lbNumOrder = new JLabel("Number Order");
+        
+        lbOrderModify = new JLabel("Number Order to Modify");
 
         //Create the open button
         JButton getTotalButton
@@ -124,6 +126,9 @@ public class OrderManager extends JFrame {
         buttonPanel.add(txtAdditionalSH);
         buttonPanel.add(lblTotal);
         buttonPanel.add(lblTotalValue);
+        buttonPanel.add(lbNumOrder);
+        buttonPanel.add(lbOrderModify);
+        buttonPanel.add(lbcontOrder);
 
         gbc.insets.top = 5;
         gbc.insets.bottom = 5;
