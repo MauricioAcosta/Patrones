@@ -244,7 +244,8 @@ public class OrderManager extends JFrame {
 class ButtonHandler implements ActionListener {
 
     OrderManager objOrderManager;
-
+    Liquidator lq;
+    
     public void actionPerformed(ActionEvent e) {
         String totalResult = null;
 
@@ -253,6 +254,9 @@ class ButtonHandler implements ActionListener {
         }
         if (e.getActionCommand().equals(OrderManager.MODIFY)) {
             System.out.println(objOrderManager.getOrderAmount());
+            // accept the visitor instance
+            order.accept(visitor);
+
         }
 
         if (e.getActionCommand().equals(OrderManager.CREATE_ORDER)) {
@@ -289,10 +293,7 @@ class ButtonHandler implements ActionListener {
             //Get the Visitor
             OrderVisitor visitor
                     = objOrderManager.getOrderVisitor();
-
-            // accept the visitor instance
-            order.accept(visitor);
-
+            
             objOrderManager.setTotalValue(
                     " Order Created Successfully");
         }
