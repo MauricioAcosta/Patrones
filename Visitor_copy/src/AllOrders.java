@@ -1,15 +1,5 @@
-
 import java.util.*;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author kirito
- */
 public class AllOrders {
 
     HashMap<String, Double> data;
@@ -22,6 +12,17 @@ public class AllOrders {
         data = new HashMap<String, Double>();
         String key1, key2, key3;
         Double a, b, c;
+
+      
+
+        //Vector dataLines = util.fileToVector("Candidates.txt");
+        for (int i = 0; i < data.size(); i++) {
+            /*String str = (String) data.elementAt(i);
+            StringTokenizer st = new StringTokenizer(str, ",");
+            data.add(
+                    new ModelOrder(st.nextToken(), st.nextToken(),
+                            st.nextToken()));*/
+        }
     }
 
     public Enumeration getAllOrders() {
@@ -30,13 +31,13 @@ public class AllOrders {
     }
 
     public Iterator getOrderSeletedType(String type) {
-        return new SelectedOrders(this,type);
+        return new SelectedOrders(type);
     }
 
 }
 
 //Scanner leer = new Scanner(System.in);
- /*     key1 = "1";
+/*     key1 = "1";
         key2= "2";
         key3 = "3";
         a = leer.nextDouble();
