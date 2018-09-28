@@ -252,7 +252,7 @@ public class OrderManager extends JFrame {
         }
         );
 
-        //frame.pack();
+        frame.pack();
         frame.setSize(500, 400);
         frame.setVisible(true);
     }
@@ -282,6 +282,32 @@ public class OrderManager extends JFrame {
         return txtAdditionalSH.getText();
     }
 
+    public void setCmbOrderType(JComboBox cmbOrderType) {
+        this.cmbOrderType = cmbOrderType;
+    }
+
+    public void setTxtOrderAmount(JTextField txtOrderAmount) {
+        this.txtOrderAmount = txtOrderAmount;
+    }
+
+    public void setTxtAdditionalTax(JTextField txtAdditionalTax) {
+        this.txtAdditionalTax = txtAdditionalTax;
+    }
+
+    public void setTxtAdditionalSH(JTextField txtAdditionalSH) {
+        this.txtAdditionalSH = txtAdditionalSH;
+    }
+
+    public String getNumOrderModify() {
+        return txtNumOrderModify.getText();
+    }
+
+    public void setNumOrderModify(JTextField txtNumOrderModify) {
+        this.txtNumOrderModify = txtNumOrderModify;
+    }
+    
+    
+
 } // End of class OrderManager
 
 class ButtonHandler implements ActionListener {
@@ -302,7 +328,9 @@ class ButtonHandler implements ActionListener {
         }
         if (e.getActionCommand().equals(OrderManager.SEARCH)) {
             // Get the damn order!
-
+            String numModify =objOrderManager.getNumOrderModify();
+            System.out.println(ao.getAllOrders(Integer.parseInt(numModify)));
+                 
 //            System.out.println(objOrderManager.getOrderAmount());
         }
 
@@ -310,8 +338,7 @@ class ButtonHandler implements ActionListener {
             //get input values
             int idOrder = objOrderManager.getOrder_number();
             String orderType = objOrderManager.getOrderType();
-            String strOrderAmount
-                    = objOrderManager.getOrderAmount();
+            String strOrderAmount = objOrderManager.getOrderAmount();
             String strTax = objOrderManager.getTax();
             String strSH = objOrderManager.getSH();
 
@@ -329,14 +356,13 @@ class ButtonHandler implements ActionListener {
                 strSH = "0.0";
             }
 
-            dblOrderAmount
-                    = new Double(strOrderAmount).doubleValue();
+            dblOrderAmount = new Double(strOrderAmount).doubleValue();
             dblTax = new Double(strTax).doubleValue();
             dblSH = new Double(strSH).doubleValue();
 
             //Create the order
-            order = createOrder(idOrder, orderType, dblOrderAmount,
-                    dblTax, dblSH);
+            order = createOrder(idOrder, orderType, dblOrderAmount, dblTax, dblSH);
+            
             objOrderManager.setOrder_number(objOrderManager.getOrder_number() + 1);
 
             objOrderManager.setLblContOrder();
@@ -348,11 +374,9 @@ class ButtonHandler implements ActionListener {
             System.out.println("I'm trying to get the total");
             liquidateOrder();
             //Get the Visitor
-            OrderVisitor visitor
-                    = objOrderManager.getOrderVisitor();
+            OrderVisitor visitor = objOrderManager.getOrderVisitor();
             System.out.println("I've creates the visitor");
-            totalResult = new Double(
-                    visitor.getOrderTotal()).toString();
+            totalResult = new Double( visitor.getOrderTotal()).toString();
             totalResult = " Orders Total = " + totalResult;
             System.out.println("Total Result: " + totalResult);
             objOrderManager.setTotalValue(totalResult);
@@ -362,8 +386,7 @@ class ButtonHandler implements ActionListener {
     public Order createOrder(int idOrder, String orderType,
             double orderAmount, double tax, double SH) {
 
-        ao.saveOrder(idOrder, orderType, orderAmount,
-                tax, SH);
+        ao.saveOrder(idOrder, orderType, orderAmount, tax, SH);
 
         if (orderType.equalsIgnoreCase(OrderManager.CA_ORDER)) {
             return new CaliforniaOrder(orderAmount, tax);
@@ -377,35 +400,30 @@ class ButtonHandler implements ActionListener {
             return new OverseasOrder(orderAmount, SH);
         }
 
-        objOrderManager.setTotalValue(
-                " Order Created Successfully");
+        objOrderManager.setTotalValue( " Order Created Successfully");
 
         return null;
     }
 
-    public Order modifyOrder() {
-        return null;
-    }
+//    public Order modifyOrder() {
+//        return null;
+//    }
 
     public void liquidateOrder() {
 
         //Get the Visitor
-        OrderVisitor visitor
-                = objOrderManager.getOrderVisitor();
+        OrderVisitor visitor = objOrderManager.getOrderVisitor();
         try {
              // accept the visitor instance
             order.accept(visitor);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(objOrderManager, "Maybe We don't have any order");
         }
-           
-       
-
     }
 
-    public Order searchOrder() {
-        return null;
-    }
+//    public Order searchOrder() {
+//        return null;
+//    }
 
     public ButtonHandler() {
     }

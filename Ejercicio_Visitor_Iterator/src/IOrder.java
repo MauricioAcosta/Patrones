@@ -1,12 +1,12 @@
 
-public class ModelOrder {
+public class IOrder {
 
     private String orderAmount;
     private String orderSH;
     private String orderTax;
     private String orderType;
 
-    public ModelOrder(String orderAmount, String orderSH, String orderTax, String orderType) {
+    public IOrder(String orderAmount, String orderSH, String orderTax, String orderType) {
         orderAmount = orderAmount;
         orderSH = orderSH;
         orderTax = orderTax;
@@ -28,5 +28,22 @@ public class ModelOrder {
     public String getOrderType() {
         return orderType;
     }
+
+    public void setOrderAmount(String orderAmount) {
+        this.orderAmount = orderAmount;
+    }
+
+    public void setOrderSH(String orderSH) {
+        this.orderSH = orderSH;
+    }
+
+    public void setOrderTax(String orderTax) {
+        this.orderTax = orderTax;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
+    }
+    
 
 }
