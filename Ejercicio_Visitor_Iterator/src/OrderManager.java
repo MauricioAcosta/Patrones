@@ -15,7 +15,7 @@ public class OrderManager extends JFrame {
     //First Modification
     public static final String MODIFY = "Modify";
     public static final String SEARCH = "Search";
-    private int order_number=0;
+    private int order_number = 0;
     public static final String CREATE_ORDER = "Create Order";
     public static final String EXIT = "Exit";
     public static final String CA_ORDER = "California Order";
@@ -30,13 +30,9 @@ public class OrderManager extends JFrame {
 
     public void setLblContOrder() {
 //        this.lblContOrder = lblContOrder;
-            this.lblContOrder.setText(Integer.toString(getOrder_number()));
-                    //Integer.toString(getOrder_number()));
+        this.lblContOrder.setText(Integer.toString(getOrder_number()));
+        //Integer.toString(getOrder_number()));
     }
-
-    
-    
-    
 
     public int getOrder_number() {
         return order_number;
@@ -70,16 +66,16 @@ public class OrderManager extends JFrame {
 
         lblTotal = new JLabel("Result:");
         lblTotalValue = new JLabel("Click Create or GetTotal Button");
-        
+
         lblNumOrder = new JLabel("Order Number:");
         lblContOrder = new JLabel(Integer.toString(order_number));
-       
+
         lblOrderModify = new JLabel("Order Number to Modify:");
 
         //Create the get Total button
         JButton getTotalButton = new JButton(OrderManager.GET_TOTAL);
         getTotalButton.setMnemonic(KeyEvent.VK_G);
-        
+
         //Create the save button
         JButton saveButton = new JButton(OrderManager.SEARCH);
         getTotalButton.setMnemonic(KeyEvent.VK_G);
@@ -107,18 +103,18 @@ public class OrderManager extends JFrame {
         JPanel buttonPanel = new JPanel();
 
         JPanel panel = new JPanel();
-        
+
         JPanel searchPanel = new JPanel();
-        
+
         GridBagLayout gridbag2 = new GridBagLayout();
         panel.setLayout(gridbag2);
-        
+
         GridBagConstraints gbc2 = new GridBagConstraints();
         panel.add(getTotalButton);
         panel.add(createOrderButton);
         panel.add(searchButton);
         panel.add(exitButton);
-        
+
         gbc2.anchor = GridBagConstraints.EAST;
         gbc2.gridx = 0;
         gbc2.gridy = 0;
@@ -132,15 +128,12 @@ public class OrderManager extends JFrame {
         gbc2.gridx = 0;
         gbc2.gridy = 0;
         gridbag2.setConstraints(exitButton, gbc2);
-        
-       
 
         //****************************************************
         GridBagLayout gridbag = new GridBagLayout();
         buttonPanel.setLayout(gridbag);
         GridBagConstraints gbc = new GridBagConstraints();
 
-        
         gbc.insets.top = 5;
         gbc.insets.bottom = 5;
         gbc.insets.left = 5;
@@ -194,9 +187,9 @@ public class OrderManager extends JFrame {
         gbc.insets.left = 2;
         gbc.insets.right = 2;
         gbc.insets.top = 40;
-        
+
         gbc.anchor = GridBagConstraints.PAGE_END; //bottom of space
-        gbc.insets = new Insets(50,50,0,0);  //top padding
+        gbc.insets = new Insets(50, 50, 0, 0);  //top padding
         gridbag.setConstraints(lblNumOrder, gbc);
         gridbag.setConstraints(lblContOrder, gbc);
         gbc.gridx = 10;
@@ -207,7 +200,7 @@ public class OrderManager extends JFrame {
         gridbag.setConstraints(txtNumOrderModify, gbc);
         gbc.gridx = 10;
         gbc.gridy = 5;
-        
+
         buttonPanel.add(lblOrderType);
         buttonPanel.add(cmbOrderType);
         buttonPanel.add(lblOrderAmount);
@@ -218,21 +211,19 @@ public class OrderManager extends JFrame {
         buttonPanel.add(txtAdditionalSH);
         buttonPanel.add(lblTotal);
         buttonPanel.add(lblTotalValue);
-        
+
         searchPanel.add(lblNumOrder);
         searchPanel.add(lblContOrder);
         searchPanel.add(lblOrderModify);
         searchPanel.add(txtNumOrderModify);
-        
-                //buttonPanel.add(lbcontOrder);
-        
+
+        //buttonPanel.add(lbcontOrder);
         panel.add(createOrderButton);
         panel.add(getTotalButton);
         panel.add(saveButton);
         panel.add(searchButton);
-        
-        panel.add(exitButton);
 
+        panel.add(exitButton);
 
         //****************************************************
         //Add the buttons and the log to the frame
@@ -291,16 +282,14 @@ public class OrderManager extends JFrame {
         return txtAdditionalSH.getText();
     }
 
-   
-
 } // End of class OrderManager
 
 class ButtonHandler implements ActionListener {
 
-    OrderManager objOrderManager;   
+    OrderManager objOrderManager;
     AllOrders ao = new AllOrders();
     Order order;
-    
+
     public void actionPerformed(ActionEvent e) {
         String totalResult = null;
 
@@ -309,14 +298,12 @@ class ButtonHandler implements ActionListener {
         }
         if (e.getActionCommand().equals(OrderManager.MODIFY)) {
             System.out.println(objOrderManager.getOrderAmount());
-            
+
         }
         if (e.getActionCommand().equals(OrderManager.SEARCH)) {
             // Get the damn order!
-            
-//            System.out.println(objOrderManager.getOrderAmount());
-           
 
+//            System.out.println(objOrderManager.getOrderAmount());
         }
 
         if (e.getActionCommand().equals(OrderManager.CREATE_ORDER)) {
@@ -350,36 +337,34 @@ class ButtonHandler implements ActionListener {
             //Create the order
             order = createOrder(idOrder, orderType, dblOrderAmount,
                     dblTax, dblSH);
-            objOrderManager.setOrder_number(objOrderManager.getOrder_number()+1);
-            
+            objOrderManager.setOrder_number(objOrderManager.getOrder_number() + 1);
+
             objOrderManager.setLblContOrder();
-            
-            
-                    
+
         }
 
         if (e.getActionCommand().equals(OrderManager.GET_TOTAL)) {
-            
-            System.out.println("I'm trying to get the total");       
+
+            System.out.println("I'm trying to get the total");
             liquidateOrder();
             //Get the Visitor
             OrderVisitor visitor
-                  = objOrderManager.getOrderVisitor();
-            System.out.println("I've creates the visitor");       
+                    = objOrderManager.getOrderVisitor();
+            System.out.println("I've creates the visitor");
             totalResult = new Double(
                     visitor.getOrderTotal()).toString();
             totalResult = " Orders Total = " + totalResult;
-            System.out.println("Total Result: "+totalResult);
+            System.out.println("Total Result: " + totalResult);
             objOrderManager.setTotalValue(totalResult);
         }
     }
 
     public Order createOrder(int idOrder, String orderType,
             double orderAmount, double tax, double SH) {
-        
+
         ao.saveOrder(idOrder, orderType, orderAmount,
-                    tax, SH);
-        
+                tax, SH);
+
         if (orderType.equalsIgnoreCase(OrderManager.CA_ORDER)) {
             return new CaliforniaOrder(orderAmount, tax);
         }
@@ -391,31 +376,34 @@ class ButtonHandler implements ActionListener {
                 OrderManager.OVERSEAS_ORDER)) {
             return new OverseasOrder(orderAmount, SH);
         }
-        
+
         objOrderManager.setTotalValue(
-                    " Order Created Successfully"); 
-        
+                " Order Created Successfully");
+
         return null;
     }
-    
-    public Order modifyOrder(){
+
+    public Order modifyOrder() {
         return null;
     }
-    
-    public void liquidateOrder(){
-        
-            //Get the Visitor
-            OrderVisitor visitor
-                    = objOrderManager.getOrderVisitor();
-            
+
+    public void liquidateOrder() {
+
+        //Get the Visitor
+        OrderVisitor visitor
+                = objOrderManager.getOrderVisitor();
+        try {
              // accept the visitor instance
             order.accept(visitor);
-            
-            
-        
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(objOrderManager, "Maybe We don't have any order");
+        }
+           
+       
+
     }
-    
-    public Order searchOrder(){
+
+    public Order searchOrder() {
         return null;
     }
 
