@@ -58,6 +58,8 @@ public class OrderManager extends JFrame {
         txtAdditionalTax = new JTextField(10);
         txtAdditionalSH = new JTextField(10);
         txtNumOrderModify = new JTextField(10);
+        txtNumOrderModify.enable(false);
+
 
         lblOrderType = new JLabel("Order Type:");
         lblOrderAmount = new JLabel("Order Amount:");
@@ -77,14 +79,14 @@ public class OrderManager extends JFrame {
         getTotalButton.setMnemonic(KeyEvent.VK_G);
 
         //Create the save button
-        JButton saveButton = new JButton(OrderManager.SEARCH);
-        getTotalButton.setMnemonic(KeyEvent.VK_G);
+        JButton searchButton = new JButton(OrderManager.SEARCH);
+        getTotalButton.setMnemonic(KeyEvent.VK_C);
 
         JButton createOrderButton = new JButton(OrderManager.CREATE_ORDER);
         getTotalButton.setMnemonic(KeyEvent.VK_C);
 
         // Create the search button
-        JButton searchButton = new JButton(OrderManager.MODIFY);
+        JButton saveButton = new JButton(OrderManager.MODIFY);
         getTotalButton.setMnemonic(KeyEvent.VK_C);
 
         JButton exitButton = new JButton(OrderManager.EXIT);
@@ -96,6 +98,7 @@ public class OrderManager extends JFrame {
         createOrderButton.addActionListener(objButtonHandler);
 
         searchButton.addActionListener(objButtonHandler);
+        saveButton.addActionListener(objButtonHandler);
 
         exitButton.addActionListener(new ButtonHandler());
 
@@ -222,7 +225,6 @@ public class OrderManager extends JFrame {
         panel.add(getTotalButton);
         panel.add(saveButton);
         panel.add(searchButton);
-
         panel.add(exitButton);
 
         //****************************************************
@@ -299,6 +301,7 @@ public class OrderManager extends JFrame {
     }
 
     public String getNumOrderModify() {
+        txtNumOrderModify.enable(true);
         return txtNumOrderModify.getText();
     }
 
@@ -329,7 +332,7 @@ class ButtonHandler implements ActionListener {
         if (e.getActionCommand().equals(OrderManager.SEARCH)) {
             // Get the damn order!
             String numModify =objOrderManager.getNumOrderModify();
-            System.out.println(ao.getAllOrders(Integer.parseInt(numModify)));
+            //System.out.println(ao.getAllOrders(Integer.parseInt(numModify)));
                  
 //            System.out.println(objOrderManager.getOrderAmount());
         }
