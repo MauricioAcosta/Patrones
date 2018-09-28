@@ -58,7 +58,6 @@ public class OrderManager extends JFrame {
         txtAdditionalTax = new JTextField(10);
         txtAdditionalSH = new JTextField(10);
         txtNumOrderModify = new JTextField(10);
-        
 
         lblOrderType = new JLabel("Order Type:");
         lblOrderAmount = new JLabel("Order Amount:");
@@ -300,7 +299,7 @@ public class OrderManager extends JFrame {
     }
 
     public String getNumOrderModify() {
-        
+
         return txtNumOrderModify.getText();
     }
 
@@ -325,49 +324,55 @@ class ButtonHandler implements ActionListener {
             System.exit(1);
         }
         if (e.getActionCommand().equals(OrderManager.MODIFY)) {
-            
-  //get input values
+
+            //get input values
             idOrder = numModify;
-            System.out.println("Modify id: "+idOrder);
+            System.out.println("Modify id: " + idOrder);
             String orderType = objOrderManager.getOrderType();
             String strOrderAmount = objOrderManager.getOrderAmount();
             String strTax = objOrderManager.getTax();
             String strSH = objOrderManager.getSH();
 
             //Modify the order
-            order = modifyOrder(idOrder, orderType, 
-                    Double.parseDouble(strOrderAmount), 
-                    Double.parseDouble(strTax), 
+            order = modifyOrder(idOrder, orderType,
+                    Double.parseDouble(strOrderAmount),
+                    Double.parseDouble(strTax),
                     Double.parseDouble(strSH)
             );
-            
+
         }
         if (e.getActionCommand().equals(OrderManager.SEARCH)) {
             // Get the damn order!
             try {
-                numModify = Integer.parseInt(objOrderManager.getNumOrderModify());
-             System.out.println("SEARCH id: "+numModify);
-                String dato = ao.data.get(numModify).toString();
-                String[] datos = dato.split(",");
-                
-                if (datos[0].length() == 17) {
-                    objOrderManager.setCmbOrderType(0);
+                if (Integer.parseInt(objOrderManager.getNumOrderModify()) > ao.getSize()) {
+                    numModify = Integer.parseInt(objOrderManager.getNumOrderModify());
+                    System.out.println("SEARCH id: " + numModify);
+                    String dato = ao.data.get(numModify).toString();
+                    
+                    
+                    String[] datos = dato.split(",");
+
+                    if (datos[0].length() == 17) {
+                        objOrderManager.setCmbOrderType(0);
+                    }
+
+                    if (datos[0].length() == 21) {
+                        objOrderManager.setCmbOrderType(1);
+                    }
+
+                    if (datos[0].length() == 15) {
+                        objOrderManager.setCmbOrderType(2);
+                    }
+
+                    objOrderManager.setTxtOrderAmount(datos[1]);
+                    objOrderManager.setTxtAdditionalTax(datos[2]);
+                    objOrderManager.setTxtAdditionalSH(datos[3]);
+                }else{
+                    JOptionPane.showMessageDialog(objOrderManager, "Maybe This order does not exist");
                 }
-                
-                if (datos[0].length() == 21) {
-                    objOrderManager.setCmbOrderType(1);
-                }
-                
-                if (datos[0].length() == 15) {
-                    objOrderManager.setCmbOrderType(2);
-                }
-                
-                objOrderManager.setTxtOrderAmount(datos[1]);
-                objOrderManager.setTxtAdditionalTax(datos[2]);
-                objOrderManager.setTxtAdditionalSH(datos[3]);
 
             } catch (Exception ex) {
-                
+
             }
 
         }
@@ -409,11 +414,11 @@ class ButtonHandler implements ActionListener {
 
         if (e.getActionCommand().equals(OrderManager.GET_TOTAL)) {
 
-            System.out.println("I'm trying to get the total");
+            //System.out.println("I'm trying to get the total");
             liquidateOrder();
             //Get the Visitor
             OrderVisitor visitor = objOrderManager.getOrderVisitor();
-            System.out.println("I've creates the visitor");
+            //System.out.println("I've created the visitor");
             totalResult = new Double(visitor.getOrderTotal()).toString();
             totalResult = " Orders Total = " + totalResult;
             System.out.println("Total Result: " + totalResult);
@@ -421,7 +426,7 @@ class ButtonHandler implements ActionListener {
         }
     }
 
-    public Order createOrder(int idOrder, String orderType,double orderAmount, double tax, double SH) {
+    public Order createOrder(int idOrder, String orderType, double orderAmount, double tax, double SH) {
 
         ao.saveOrder(idOrder, orderType, orderAmount, tax, SH);
 
@@ -441,12 +446,12 @@ class ButtonHandler implements ActionListener {
 
         return null;
     }
-    
-        public Order modifyOrder(int idOrder, String orderType,double orderAmount, double tax, double SH) {
+
+    public Order modifyOrder(int idOrder, String orderType, double orderAmount, double tax, double SH) {
 
         ao.saveOrder(idOrder, orderType, orderAmount, tax, SH);
 
-        if (orderType.equalsIgnoreCase(OrderManager.CA_ORDER)) {
+        /*if (orderType.equalsIgnoreCase(OrderManager.CA_ORDER)) {
             return new CaliforniaOrder(orderAmount, tax);
         }
         if (orderType.equalsIgnoreCase(
@@ -457,7 +462,7 @@ class ButtonHandler implements ActionListener {
                 OrderManager.OVERSEAS_ORDER)) {
             return new OverseasOrder(orderAmount, SH);
         }
-
+*/
         objOrderManager.setTotalValue(" Order Modify Successfully");
 
         return null;
