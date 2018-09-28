@@ -1,29 +1,27 @@
 
 import java.util.*;
 
+
 public class AllOrders {
 
-    HashMap<String, Double> data;
+    HashMap data;
 
     public AllOrders() {
         initialize();
     }
 
     private void initialize() {
-        data = new HashMap<String, Double>();
-        String key1, key2, key3;
-        Double a, b, c;
-
-        //Vector dataLines = util.fileToVector("Candidates.txt");
-        for (int i = 0; i < data.size(); i++) {
-            /*String str = (String) data.elementAt(i);
-            StringTokenizer st = new StringTokenizer(str, ",");
-            data.add(
-                    new ModelOrder(st.nextToken(), st.nextToken(),
-                            st.nextToken()));*/
-        }
+        data = new HashMap();        
     }
 
+    public void saveOrder(int idOrder, String orderType,
+            double orderAmount, double tax, double SH){        
+        
+        
+            data.put(idOrder,orderType+","+orderAmount+","+tax+","+SH);
+        
+    }
+    
     public Enumeration getAllOrders() {
 
         return null;

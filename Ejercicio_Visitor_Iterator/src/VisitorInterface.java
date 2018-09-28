@@ -1,9 +1,9 @@
 
 public interface VisitorInterface {
 
-    public NonCaliforniaOrder visit(NonCaliforniaOrder nco);
+    public void visit(NonCaliforniaOrder nco);
 
-    public CaliforniaOrder visit(CaliforniaOrder co);
+    public void visit(CaliforniaOrder co);
 
-    public OverseasOrder visit(OverseasOrder oo);
+    public void visit(OverseasOrder oo);
 }
