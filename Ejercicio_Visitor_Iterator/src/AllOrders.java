@@ -24,13 +24,13 @@ public class AllOrders {
     public void saveOrder(int idOrder, String orderType,double orderAmount, double tax, double SH){
         
         if (data.containsKey(idOrder)) {
-            System.out.println("Replace, idOrder:"+idOrder);
+            //System.out.println("Replace, idOrder:"+idOrder);
             //data.remove(idOrder+1);
-            System.out.println(data.get(idOrder));
+            //System.out.println(data.get(idOrder));
             data.replace(idOrder,data.get(idOrder), (orderType+" , "+orderAmount+" , "+tax+" , "+SH));
-            System.out.println(data.get(idOrder));
+            //System.out.println(data.get(idOrder));
         }else{
-            System.out.println("Save, idOrder:"+idOrder);
+            //System.out.println("Save, idOrder:"+idOrder);
             data.put(idOrder,orderType+" , "+orderAmount+" , "+tax+" , "+SH);
         }
                 
@@ -38,16 +38,7 @@ public class AllOrders {
         //System.out.println("AllOrders.saveOrder() "+ data);
 
     }
-    
-    public Enumeration getAllOrders(int idOrder) {
 
-        return (Enumeration) data.get(idOrder);
-    }
-
-    public Iterator getOrderSeletedType() {
-        return new SelectedOrders(this);
-    }
-   
 
 }
 
