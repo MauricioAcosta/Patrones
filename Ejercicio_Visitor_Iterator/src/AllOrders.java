@@ -1,6 +1,4 @@
-
 import java.util.*;
-
 
 public class AllOrders {
 
@@ -15,8 +13,7 @@ public class AllOrders {
     }
 
     public void saveOrder(int idOrder, String orderType,
-            double orderAmount, double tax, double SH){        
-        
+            double orderAmount, double tax, double SH){                
         
             data.put(idOrder,orderType+","+orderAmount+","+tax+","+SH);
         

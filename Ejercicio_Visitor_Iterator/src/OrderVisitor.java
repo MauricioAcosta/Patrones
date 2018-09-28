@@ -11,10 +11,8 @@ class OrderVisitor implements VisitorInterface {
     }
 
     public void visit(NonCaliforniaOrder inp_order) {
-
         orderTotal = orderTotal + inp_order.getOrderAmount();
-        System.out.println("Valor order " + inp_order.getOrderAmount());
-     
+        System.out.println("Valor order " + inp_order.getOrderAmount());     
     }
 
     public void visit(CaliforniaOrder inp_order) {

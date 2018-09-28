@@ -299,6 +299,7 @@ class ButtonHandler implements ActionListener {
 
     OrderManager objOrderManager;   
     AllOrders ao = new AllOrders();
+    Order order;
     
     public void actionPerformed(ActionEvent e) {
         String totalResult = null;
@@ -314,8 +315,7 @@ class ButtonHandler implements ActionListener {
             // Get the damn order!
             
 //            System.out.println(objOrderManager.getOrderAmount());
-            // accept the visitor instance
-            //order.accept(visitor);
+           
 
         }
 
@@ -348,24 +348,20 @@ class ButtonHandler implements ActionListener {
             dblSH = new Double(strSH).doubleValue();
 
             //Create the order
-            Order order = createOrder(idOrder, orderType, dblOrderAmount,
+            order = createOrder(idOrder, orderType, dblOrderAmount,
                     dblTax, dblSH);
             objOrderManager.setOrder_number(objOrderManager.getOrder_number()+1);
             
             objOrderManager.setLblContOrder();
             
             
-            //Get the Visitor
-            OrderVisitor visitor
-                    = objOrderManager.getOrderVisitor();
-            
-            objOrderManager.setTotalValue(
-                    " Order Created Successfully");
                     
         }
 
         if (e.getActionCommand().equals(OrderManager.GET_TOTAL)) {
-                             System.out.println("I'm trying to get the total");       
+            
+            System.out.println("I'm trying to get the total");       
+            liquidateOrder();
             //Get the Visitor
             OrderVisitor visitor
                   = objOrderManager.getOrderVisitor();
@@ -373,6 +369,7 @@ class ButtonHandler implements ActionListener {
             totalResult = new Double(
                     visitor.getOrderTotal()).toString();
             totalResult = " Orders Total = " + totalResult;
+            System.out.println("Total Result: "+totalResult);
             objOrderManager.setTotalValue(totalResult);
         }
     }
@@ -394,6 +391,10 @@ class ButtonHandler implements ActionListener {
                 OrderManager.OVERSEAS_ORDER)) {
             return new OverseasOrder(orderAmount, SH);
         }
+        
+        objOrderManager.setTotalValue(
+                    " Order Created Successfully"); 
+        
         return null;
     }
     
@@ -401,8 +402,17 @@ class ButtonHandler implements ActionListener {
         return null;
     }
     
-    public Order liquidateOrder(){
-        return null;
+    public void liquidateOrder(){
+        
+            //Get the Visitor
+            OrderVisitor visitor
+                    = objOrderManager.getOrderVisitor();
+            
+             // accept the visitor instance
+            order.accept(visitor);
+            
+            
+        
     }
     
     public Order searchOrder(){
