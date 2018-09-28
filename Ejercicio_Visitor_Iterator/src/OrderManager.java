@@ -326,7 +326,7 @@ class ButtonHandler implements ActionListener {
         if (e.getActionCommand().equals(OrderManager.MODIFY)) {
 
             //get input values
-            idOrder = numModify;
+            idOrder = numModify-1;
             System.out.println("Modify id: " + idOrder);
             String orderType = objOrderManager.getOrderType();
             String strOrderAmount = objOrderManager.getOrderAmount();
@@ -334,7 +334,7 @@ class ButtonHandler implements ActionListener {
             String strSH = objOrderManager.getSH();
 
             //Modify the order
-            order = modifyOrder(idOrder, orderType,
+            modifyOrder(idOrder, orderType,
                     Double.parseDouble(strOrderAmount),
                     Double.parseDouble(strTax),
                     Double.parseDouble(strSH)
@@ -344,10 +344,10 @@ class ButtonHandler implements ActionListener {
         if (e.getActionCommand().equals(OrderManager.SEARCH)) {
             // Get the damn order!
             try {
-                if (Integer.parseInt(objOrderManager.getNumOrderModify()) > ao.getSize()) {
+                if (Integer.parseInt(objOrderManager.getNumOrderModify()) >= ao.getSize()) {
                     numModify = Integer.parseInt(objOrderManager.getNumOrderModify());
                     System.out.println("SEARCH id: " + numModify);
-                    String dato = ao.data.get(numModify).toString();
+                    String dato = ao.data.get(numModify-1).toString();
                     
                     
                     String[] datos = dato.split(",");
@@ -447,25 +447,11 @@ class ButtonHandler implements ActionListener {
         return null;
     }
 
-    public Order modifyOrder(int idOrder, String orderType, double orderAmount, double tax, double SH) {
+    public void modifyOrder(int idOrder, String orderType, double orderAmount, double tax, double SH) {
 
         ao.saveOrder(idOrder, orderType, orderAmount, tax, SH);
 
-        /*if (orderType.equalsIgnoreCase(OrderManager.CA_ORDER)) {
-            return new CaliforniaOrder(orderAmount, tax);
-        }
-        if (orderType.equalsIgnoreCase(
-                OrderManager.NON_CA_ORDER)) {
-            return new NonCaliforniaOrder(orderAmount);
-        }
-        if (orderType.equalsIgnoreCase(
-                OrderManager.OVERSEAS_ORDER)) {
-            return new OverseasOrder(orderAmount, SH);
-        }
-*/
         objOrderManager.setTotalValue(" Order Modify Successfully");
-
-        return null;
     }
 
     public void liquidateOrder() {

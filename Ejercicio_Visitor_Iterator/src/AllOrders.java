@@ -23,13 +23,15 @@ public class AllOrders {
     }
     public void saveOrder(int idOrder, String orderType,double orderAmount, double tax, double SH){
         
-        if (data.get(idOrder+1)!=null) {
+        if (data.containsKey(idOrder)) {
             System.out.println("Replace, idOrder:"+idOrder);
-            data.remove(idOrder+1);
-            data.put(idOrder+1,orderType+" , "+orderAmount+" , "+tax+" , "+SH);
+            //data.remove(idOrder+1);
+            System.out.println(data.get(idOrder));
+            data.replace(idOrder,data.get(idOrder), (orderType+" , "+orderAmount+" , "+tax+" , "+SH));
+            System.out.println(data.get(idOrder));
         }else{
             System.out.println("Save, idOrder:"+idOrder);
-            data.put(idOrder+1,orderType+" , "+orderAmount+" , "+tax+" , "+SH);
+            data.put(idOrder,orderType+" , "+orderAmount+" , "+tax+" , "+SH);
         }
                 
         
