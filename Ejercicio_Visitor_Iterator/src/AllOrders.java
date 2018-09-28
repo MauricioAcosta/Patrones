@@ -1,6 +1,4 @@
-
 import java.util.*;
-
 
 public class AllOrders {
 
@@ -13,9 +11,9 @@ public class AllOrders {
     private void initialize() {
         data = new HashMap();        
     }
-
     public void saveOrder(int idOrder, String orderType,double orderAmount, double tax, double SH){
         data.put(idOrder,orderType+","+orderAmount+","+tax+","+SH);
+
     }
     
     public Enumeration getAllOrders() {
