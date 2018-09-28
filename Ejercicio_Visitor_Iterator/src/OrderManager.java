@@ -260,6 +260,14 @@ public class OrderManager extends JFrame {
     public void setTotalValue(String msg) {
         lblTotalValue.setText(msg);
     }
+    
+    public void clean(){
+        txtAdditionalSH.setText("");
+        txtAdditionalTax.setText("");
+        txtNumOrderModify.setText("");
+        txtOrderAmount.setText("");
+        
+    }
 
     public OrderVisitor getOrderVisitor() {
         System.out.println("\nGetting the order visitor ^^");
@@ -339,12 +347,16 @@ class ButtonHandler implements ActionListener {
                     Double.parseDouble(strTax),
                     Double.parseDouble(strSH)
             );
-
+            objOrderManager.clean();
         }
         if (e.getActionCommand().equals(OrderManager.SEARCH)) {
-            // Get the damn order!
-            numModify = Integer.parseInt(objOrderManager.getNumOrderModify());
-            searchOrder(numModify);
+
+            try {
+                numModify = Integer.parseInt(objOrderManager.getNumOrderModify());
+                searchOrder(numModify);
+            } catch (Exception ec) {
+            JOptionPane.showMessageDialog(objOrderManager, "Maybe This order does not exist");        
+            }
 
         }
 
@@ -380,6 +392,7 @@ class ButtonHandler implements ActionListener {
             objOrderManager.setOrder_number(objOrderManager.getOrder_number() + 1);
 
             objOrderManager.setLblContOrder();
+            objOrderManager.clean();
 
         }
 
@@ -439,37 +452,29 @@ class ButtonHandler implements ActionListener {
     }
 
     public Order searchOrder(int numModify) {
-        try {
-            if (Integer.parseInt(objOrderManager.getNumOrderModify()) >= ao.getSize()) {
 
-                System.out.println("SEARCH id: " + numModify);
-                String dato = ao.data.get(numModify - 1).toString();
+        if (Integer.parseInt(objOrderManager.getNumOrderModify()) >= ao.getSize()) {
 
-                String[] datos = dato.split(",");
+            //System.out.println("SEARCH id: " + numModify);
+            String dato = ao.data.get(numModify - 1).toString();
 
-                if (datos[0].length() == 17) {
-                    objOrderManager.setCmbOrderType(0);
-                }
+            String[] datos = dato.split(",");
 
-                if (datos[0].length() == 21) {
-                    objOrderManager.setCmbOrderType(1);
-                }
-
-                if (datos[0].length() == 15) {
-                    objOrderManager.setCmbOrderType(2);
-                }
-
-                objOrderManager.setTxtOrderAmount(datos[1]);
-                objOrderManager.setTxtAdditionalTax(datos[2]);
-                objOrderManager.setTxtAdditionalSH(datos[3]);
-            } else {
-
-                JOptionPane.showMessageDialog(objOrderManager, "Maybe This order does not exist");
-
+            if (datos[0].length() == 17) {
+                objOrderManager.setCmbOrderType(0);
             }
 
-        } catch (Exception ex) {
+            if (datos[0].length() == 21) {
+                objOrderManager.setCmbOrderType(1);
+            }
 
+            if (datos[0].length() == 15) {
+                objOrderManager.setCmbOrderType(2);
+            }
+
+            objOrderManager.setTxtOrderAmount(datos[1]);
+            objOrderManager.setTxtAdditionalTax(datos[2]);
+            objOrderManager.setTxtAdditionalSH(datos[3]);
         }
 
         return null;
