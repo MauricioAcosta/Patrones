@@ -44,8 +44,8 @@ public class AllOrders {
         return (Enumeration) data.get(idOrder);
     }
 
-    public Iterator getOrderSeletedType(String type) {
-        return new SelectedOrders(this,type);
+    public Iterator getOrderSeletedType() {
+        return new SelectedOrders(this);
     }
    
 
