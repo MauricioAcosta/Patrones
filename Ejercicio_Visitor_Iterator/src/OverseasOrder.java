@@ -7,8 +7,7 @@ public class OverseasOrder implements Order {
     public OverseasOrder() {
     }
 
-    public OverseasOrder(double inp_orderAmount,
-            double inp_additionalSH) {
+    public OverseasOrder(double inp_orderAmount,double inp_additionalSH) {
         orderAmount = inp_orderAmount;
         additionalSH = inp_additionalSH;
     }

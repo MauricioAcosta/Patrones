@@ -12,7 +12,8 @@ public class AllOrders {
         data = new HashMap();        
     }
     public void saveOrder(int idOrder, String orderType,double orderAmount, double tax, double SH){
-        data.put(idOrder,orderType+","+orderAmount+","+tax+","+SH);
+        data.put(idOrder+1,orderType+" , "+orderAmount+" , "+tax+" , "+SH);
+        //System.out.println("AllOrders.saveOrder() "+ data);
 
     }
     
@@ -24,6 +25,7 @@ public class AllOrders {
     public Iterator getOrderSeletedType(String type) {
         return new SelectedOrders(this,type);
     }
+   
 
 }
 
