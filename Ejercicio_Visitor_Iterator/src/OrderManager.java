@@ -58,7 +58,7 @@ public class OrderManager extends JFrame {
         txtAdditionalTax = new JTextField(10);
         txtAdditionalSH = new JTextField(10);
         txtNumOrderModify = new JTextField(10);
-        txtNumOrderModify.enable(false);
+        
 
         lblOrderType = new JLabel("Order Type:");
         lblOrderAmount = new JLabel("Order Amount:");
@@ -300,7 +300,7 @@ public class OrderManager extends JFrame {
     }
 
     public String getNumOrderModify() {
-        txtNumOrderModify.enable(true);
+        
         return txtNumOrderModify.getText();
     }
 
@@ -316,6 +316,7 @@ class ButtonHandler implements ActionListener {
     AllOrders ao = new AllOrders();
     Order order;
     int idOrder;
+    int numModify;
 
     public void actionPerformed(ActionEvent e) {
         String totalResult = null;
@@ -324,15 +325,28 @@ class ButtonHandler implements ActionListener {
             System.exit(1);
         }
         if (e.getActionCommand().equals(OrderManager.MODIFY)) {
-            System.out.println(objOrderManager.getOrderAmount());
+            
+  //get input values
+            idOrder = numModify;
+            System.out.println("Modify id: "+idOrder);
+            String orderType = objOrderManager.getOrderType();
+            String strOrderAmount = objOrderManager.getOrderAmount();
+            String strTax = objOrderManager.getTax();
+            String strSH = objOrderManager.getSH();
 
+            //Modify the order
+            order = modifyOrder(idOrder, orderType, 
+                    Double.parseDouble(strOrderAmount), 
+                    Double.parseDouble(strTax), 
+                    Double.parseDouble(strSH)
+            );
+            
         }
         if (e.getActionCommand().equals(OrderManager.SEARCH)) {
             // Get the damn order!
             try {
-                int numModify = Integer.parseInt(objOrderManager.getNumOrderModify());
-                //Enumeration valores = ao.getAllOrders(Integer.valueOf(numModify));
-                //valores.nextElement();
+                numModify = Integer.parseInt(objOrderManager.getNumOrderModify());
+             System.out.println("SEARCH id: "+numModify);
                 String dato = ao.data.get(numModify).toString();
                 String[] datos = dato.split(",");
                 
@@ -353,19 +367,9 @@ class ButtonHandler implements ActionListener {
                 objOrderManager.setTxtAdditionalSH(datos[3]);
 
             } catch (Exception ex) {
+                
             }
 
-//            try {
-//            int num =Integer.getInteger(numModify);
-//            if (idOrder < num) {
-//                System.out.println("hola: "+ numModify);
-//            }
-//            System.out.println("hola: "+ numModify);
-//                
-//            } catch (Exception ex) {
-//            }
-            //System.out.println(ao.getAllOrders(Integer.parseInt(numModify)));
-//            System.out.println(objOrderManager.getOrderAmount());
         }
 
         if (e.getActionCommand().equals(OrderManager.CREATE_ORDER)) {
@@ -417,8 +421,7 @@ class ButtonHandler implements ActionListener {
         }
     }
 
-    public Order createOrder(int idOrder, String orderType,
-            double orderAmount, double tax, double SH) {
+    public Order createOrder(int idOrder, String orderType,double orderAmount, double tax, double SH) {
 
         ao.saveOrder(idOrder, orderType, orderAmount, tax, SH);
 
@@ -438,10 +441,28 @@ class ButtonHandler implements ActionListener {
 
         return null;
     }
+    
+        public Order modifyOrder(int idOrder, String orderType,double orderAmount, double tax, double SH) {
 
-//    public Order modifyOrder() {
-//        return null;
-//    }
+        ao.saveOrder(idOrder, orderType, orderAmount, tax, SH);
+
+        if (orderType.equalsIgnoreCase(OrderManager.CA_ORDER)) {
+            return new CaliforniaOrder(orderAmount, tax);
+        }
+        if (orderType.equalsIgnoreCase(
+                OrderManager.NON_CA_ORDER)) {
+            return new NonCaliforniaOrder(orderAmount);
+        }
+        if (orderType.equalsIgnoreCase(
+                OrderManager.OVERSEAS_ORDER)) {
+            return new OverseasOrder(orderAmount, SH);
+        }
+
+        objOrderManager.setTotalValue(" Order Modify Successfully");
+
+        return null;
+    }
+
     public void liquidateOrder() {
 
         //Get the Visitor
