@@ -12,31 +12,20 @@ public class AllOrders {
         data = new HashMap();        
     }
     public void saveOrder(int idOrder, String orderType,double orderAmount, double tax, double SH){
-        data.put(idOrder,orderType+","+orderAmount+","+tax+","+SH);
+        data.put(idOrder+1,orderType+" , "+orderAmount+" , "+tax+" , "+SH);
+        //System.out.println("AllOrders.saveOrder() "+ data);
 
     }
     
-    public Enumeration getAllOrders() {
+    public Enumeration getAllOrders(int idOrder) {
 
-        return null;
+        return (Enumeration) data.get(idOrder);
     }
 
     public Iterator getOrderSeletedType(String type) {
-        return new SelectedOrders(type);
+        return new SelectedOrders(this,type);
     }
+   
 
 }
 
-//Scanner leer = new Scanner(System.in);
-/*     key1 = "1";
-        key2= "2";
-        key3 = "3";
-        a = leer.nextDouble();
-        b = leer.nextDouble();
-        c = leer.nextDouble();
-        perrito.put(key1, a);
-        perrito.put(key2, b);
-        perrito.put(key3, c);
-        System.out.println("Perrito[0]: "+perrito.get(key1));
-        System.out.println("Perrito[1]: "+perrito.get(key2));
-        System.out.println("Perrito[2]: "+perrito.get(key3));*/
